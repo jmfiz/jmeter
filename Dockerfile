@@ -63,9 +63,9 @@ RUN apt-get -y update && \
     wget \
     unzip
 
-COPY JMeter/JMeterPlugins-Standard-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-Standard-${PLUGINS_VERSION}.zip
-COPY JMeter/JMeterPlugins-ExtrasLibs-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-ExtrasLibs-${PLUGINS_VERSION}.zip
-COPY JMeter/JMeterPlugins-Extras-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-Extras-${PLUGINS_VERSION}.zip
+COPY JMeterPlugins-Standard-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-Standard-${PLUGINS_VERSION}.zip
+COPY JMeterPlugins-ExtrasLibs-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-ExtrasLibs-${PLUGINS_VERSION}.zip
+COPY JMeterPlugins-Extras-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-Extras-${PLUGINS_VERSION}.zip
 
 RUN unzip -o ${JMETER_HOME}/JMeterPlugins-Standard-${PLUGINS_VERSION}.zip -d ${JMETER_HOME} && \
     unzip -o ${JMETER_HOME}/JMeterPlugins-Extras-${PLUGINS_VERSION}.zip -d ${JMETER_HOME} && \
@@ -79,9 +79,9 @@ RUN rm -rf ${JMETER_HOME}/*.zip \
 
 
 # Copy user.properties
-ADD JMeter/user.properties  ${JMETER_HOME}/bin/
+ADD user.properties  ${JMETER_HOME}/bin/
 
-COPY JMeter/my-httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY my-httpd.conf /usr/local/apache2/conf/httpd.conf
 
 # Create image dir
 RUN mkdir /usr/local/apache2/htdocs/tests
