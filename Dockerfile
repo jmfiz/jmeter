@@ -20,6 +20,7 @@ RUN apt-get -y update && \
     wget
 
 RUN apt-get -y install python-software-properties
+RUN apt-get -y install software-properties-common
 RUN add-apt-repository -y ppa:webupd8team/java
 RUN apt-get -y update
 RUN apt-get -y install oracle-java8-installer
