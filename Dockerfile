@@ -17,27 +17,14 @@ RUN echo "deb http://httpredir.debian.org/debian stretch main contrib" | tee -a 
 
 RUN apt-get -y update && \
     apt-get -y install \
-    wget \
-    java-package
+    wget
 
-RUN useradd javjav && \
-    mkdir javjavws && \
-    chown javjav:javjav javjavws && \
-    cd javjavws && \
-    wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION}-b${BUILD}/jdk-${JAVA_VERSION}-linux-x64.tar.gz && \
-    runuser -l javjav -c "yes Y | fakeroot make-jpkg jdk-${JAVA_VERSION}-linux-x64.tar.gz" && \
-    dpkg -i oracle-java${VERSION}-jdk_${JAVA_VERSION}_amd64.deb
+RUN apt-get install python-software-properties
+RUN add-apt-repository ppa:webupd8team/java
+RUN apt-get update
+RUN apt-get install oracle-java8-installer
 
-RUN sed -i '$ d' /etc/apt/sources.list && \
-    rm -rf javjavws && \
-    userdel javjav && \
-    apt-get -y remove wget && \
-    apt-get -y remove java-package && \
-    apt-get -y --purge autoremove && \
-    apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-ENV JAVA_HOME /usr/lib/jvm/jdk-${VERSION}-oracle-x64
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV JRE_HOME ${JAVA_HOME}/jre ENV LANG en_US.UTF-8
 
 ENV JMETER_HOME=/usr/local/apache-jmeter-${JMETER_VERSION}
