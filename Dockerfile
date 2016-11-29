@@ -19,10 +19,10 @@ RUN apt-get -y update && \
     apt-get -y install \
     wget
 
-RUN apt-get install python-software-properties
-RUN add-apt-repository ppa:webupd8team/java
-RUN apt-get update
-RUN apt-get install oracle-java8-installer
+RUN apt-get -y install python-software-properties
+RUN add-apt-repository -y ppa:webupd8team/java
+RUN apt-get -y update
+RUN apt-get -y install oracle-java8-installer
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV JRE_HOME ${JAVA_HOME}/jre ENV LANG en_US.UTF-8
