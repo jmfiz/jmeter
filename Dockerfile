@@ -3,7 +3,7 @@ MAINTAINER Paradigma <jmfiz@paradigmadigital.com>
 
 # env
 ENV LC_ALL C
-ENV JMETER_VERSION 3.0
+ENV JMETER_VERSION 3.1
 ENV PLUGINS_VERSION 1.4.0
 ENV JMETER_PATH /srv/var/jmeter
 ENV PLUGINS_PATH $JMETER_PATH/plugins
