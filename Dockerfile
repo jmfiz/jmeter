@@ -60,7 +60,7 @@ RUN rm -rf apache-jmeter-${JMETER_VERSION}.tgz \
 
 RUN apt-get -y update && \
     apt-get -y install \
-    wget \
+    rsync \
     unzip
 
 COPY JMeterPlugins-Standard-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-Standard-${PLUGINS_VERSION}.zip
