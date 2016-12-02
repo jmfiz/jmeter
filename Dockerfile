@@ -40,9 +40,6 @@ ENV JRE_HOME ${JAVA_HOME}/jre ENV LANG en_US.UTF-8
 ENV JMETER_HOME=/usr/local/apache-jmeter-${JMETER_VERSION}
 ENV PATH=${JMETER_HOME}/bin:${PATH}
 
-RUN apt-get -y update && \
-    apt-get -y install wget
-
 RUN wget http://www.eu.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz && \
     tar -xzf apache-jmeter-${JMETER_VERSION}.tgz -C /usr/local/
 
@@ -83,9 +80,6 @@ RUN rm -rf ${JMETER_HOME}/*.zip \
 ADD user.properties  ${JMETER_HOME}/bin/
 
 COPY my-httpd.conf /usr/local/apache2/conf/httpd.conf
-
-# Create image dir
-RUN mkdir /usr/local/apache2/htdocs/tests
 
 RUN chgrp -R 0 /usr/local/apache2 \
     && chmod -R a+rw /usr/local/apache2
