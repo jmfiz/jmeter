@@ -17,7 +17,9 @@ RUN echo "deb http://httpredir.debian.org/debian stretch main contrib" | tee -a 
 
 RUN apt-get -y update && \
     apt-get -y install \
-    wget
+    wget \
+    git \
+    unzip
 
 RUN \
     echo "===> add webupd8 repository..."  && \
@@ -43,24 +45,6 @@ ENV PATH=${JMETER_HOME}/bin:${PATH}
 RUN wget http://www.eu.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz && \
     tar -xzf apache-jmeter-${JMETER_VERSION}.tgz -C /usr/local/
 
-RUN rm -rf apache-jmeter-${JMETER_VERSION}.tgz \
-            ${JMETER_HOME}/bin/examples \
-            ${JMETER_HOME}/bin/templates \
-            ${JMETER_HOME}/bin/*.cmd \
-            ${JMETER_HOME}/bin/*.bat \
-            ${JMETER_HOME}/docs \
-            ${JMETER_HOME}/printable_docs && \
-    apt-get -y remove wget && \
-    apt-get -y --purge autoremove && \
-    apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN apt-get -y update && \
-    apt-get -y install \
-    rsync \
-    git \
-    unzip
-
 COPY JMeterPlugins-Standard-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-Standard-${PLUGINS_VERSION}.zip
 COPY JMeterPlugins-ExtrasLibs-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-ExtrasLibs-${PLUGINS_VERSION}.zip
 COPY JMeterPlugins-Extras-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-Extras-${PLUGINS_VERSION}.zip
@@ -68,13 +52,6 @@ COPY JMeterPlugins-Extras-${PLUGINS_VERSION}.zip ${JMETER_HOME}/JMeterPlugins-Ex
 RUN unzip -o ${JMETER_HOME}/JMeterPlugins-Standard-${PLUGINS_VERSION}.zip -d ${JMETER_HOME} && \
     unzip -o ${JMETER_HOME}/JMeterPlugins-Extras-${PLUGINS_VERSION}.zip -d ${JMETER_HOME} && \
     unzip -o ${JMETER_HOME}/JMeterPlugins-ExtrasLibs-${PLUGINS_VERSION}.zip -d ${JMETER_HOME}
-
-RUN rm -rf ${JMETER_HOME}/*.zip \
-            ${JMETER_HOME}/lib/ext/*.bat && \
-    apt-get -y --purge autoremove && \
-    apt-get -y clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 
 # Copy user.properties
 ADD user.properties  ${JMETER_HOME}/bin/
